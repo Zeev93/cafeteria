@@ -15,7 +15,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::all();
+        return view('categoria.index', compact('categorias'));
     }
 
     /**
@@ -25,7 +26,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -36,20 +37,16 @@ class CategoriaController extends Controller
      */
     public function store(StoreCategoriaRequest $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Categoria  $categoria
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Categoria $categoria)
-    {
-        //
-    }
+        $data = $request->validate([
+            'descripcion' => 'required'
+        ]);
 
+        $categoria = Categoria::create($data);
+
+        return back()->with('estado', 'Categoria Guardada');
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -58,7 +55,7 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        //
+        return view('categoria.edit', compact('categoria'));
     }
 
     /**
@@ -70,7 +67,15 @@ class CategoriaController extends Controller
      */
     public function update(UpdateCategoriaRequest $request, Categoria $categoria)
     {
-        //
+        $data = $request->validate([
+            'descripcion' => 'required'
+        ]);
+
+        $categoria->$data['descripcion'];
+
+        $categoria->save();
+
+        return back()->with('estado', 'Categoria Actualizada correctamente');
     }
 
     /**
@@ -81,6 +86,7 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
+        return back()->with('estado', 'Se ha eliminado correctamente');
     }
 }

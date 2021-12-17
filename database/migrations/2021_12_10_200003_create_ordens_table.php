@@ -15,6 +15,8 @@ class CreateOrdensTable extends Migration
     {
         Schema::create('ordens', function (Blueprint $table) {
             $table->id();
+            $table->integer('mesa');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
