@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Categoria;
 use App\Http\Requests\StoreProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
 
@@ -15,7 +16,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+       $productos = Producto::simplePaginate(5);
+       return view('productos.index', compact('productos'));
     }
 
     /**
@@ -25,7 +27,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+
+        $categorias = Categoria::all();
+       return view('productos.create', compact('categorias'));
     }
 
     /**
@@ -36,7 +40,20 @@ class ProductoController extends Controller
      */
     public function store(StoreProductoRequest $request)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'stock' => 'required',
+            'categoria_id' => 'required'
+        ]);
+
+        $producto = new Producto($data);
+        // $producto->categoria_id = $data['categoria'];
+        if($producto->save()){
+            return redirect('productos')->with('status', 'Se ha guardado correctamente');
+        }
+
     }
 
     /**
@@ -58,7 +75,9 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        $categorias = Categoria::all();
+
+        return view('productos.edit', compact('producto', 'categorias'));
     }
 
     /**
@@ -70,7 +89,23 @@ class ProductoController extends Controller
      */
     public function update(UpdateProductoRequest $request, Producto $producto)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'stock' => 'required',
+            'categoria_id' => 'required'
+        ]);
+
+        $producto->nombre = $data['nombre'];
+        $producto->descripcion = $data['descripcion'];
+        $producto->precio = $data['precio'];
+        $producto->stock = $data['stock'];
+        $producto->categoria_id = $data['categoria_id'];
+
+        if($producto->save()){
+            return redirect('productos')->with('status', 'Se ha actualizado correctamente');
+        }
     }
 
     /**
@@ -81,6 +116,9 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+
+        if($producto->delete()){
+            return redirect('productos')->with('status', 'Se ha eliminado correctamente');
+        }
     }
 }

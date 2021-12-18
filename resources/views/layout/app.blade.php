@@ -6,7 +6,8 @@
 
         <title>Laravel</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     </head>
     <body class="antialiased">
@@ -18,9 +19,9 @@
         <nav class="bg-gray-700 rounded-sm h-16 w-full flex items-center px-5">
             <img src="{{ asset('images/coffe_logo.png') }}" alt="Logo" class="w-12 mx-3">
             @guest
-                <a href="{{ url('/login') }}" class="text-white no-underline hover:opacity-80 ml-auto">Ingresar </a>
+                <a href="{{ route('acceso') }}" class="text-white no-underline hover:opacity-80 ml-auto">Ingresar </a>
             @else
-            <form action="{{ url('/logout') }}" method="POST" class="inline-block ml-auto">
+            <form action="{{ route('logout') }}" method="POST" class="inline-block ml-auto">
                 @csrf
                 <a href="#" onclick="this.closest('form').submit()" class="text-white no-underline hover:opacity-80 ml-auto">Logout</a>
             </form>
@@ -28,17 +29,18 @@
         </nav>
         @yield('menu_categorias')
         @yield('content')
+
+    <script>
+        if(document.querySelector('.status')){
+            setTimeout(() => {
+                let status = document.querySelector('.status')
+                parent = status.parentNode
+                parent.removeChild(status)
+
+            }, 3000);
+        }
+    </script>
+
     </body>
 </html>
 
-
-<script>
-    if(document.querySelector('.status')){
-        setTimeout(() => {
-            let status = document.querySelector('.status')
-            parent = status.parentNode
-            parent.removeChild(status)
-
-        }, 3000);
-    }
-</script>
