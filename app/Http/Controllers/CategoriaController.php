@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Http\Requests\StoreCategoriaRequest;
 use App\Http\Requests\UpdateCategoriaRequest;
+use App\Models\Producto;
 
 class CategoriaController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
+        $categorias = Categoria::paginate(10);
         return view('categoria.index', compact('categorias'));
     }
 
@@ -44,7 +45,7 @@ class CategoriaController extends Controller
 
         $categoria = Categoria::create($data);
 
-        return back()->with('estado', 'Categoria Guardada');
+        return redirect('/categorias')->with('status', 'Categoria Guardada');
 
     }
     /**
@@ -71,11 +72,11 @@ class CategoriaController extends Controller
             'descripcion' => 'required'
         ]);
 
-        $categoria->$data['descripcion'];
+        $categoria->descripcion = $data['descripcion'];
 
         $categoria->save();
 
-        return back()->with('estado', 'Categoria Actualizada correctamente');
+        return redirect('/categorias')->with('status', 'Categoria Actualizada correctamente');
     }
 
     /**
@@ -86,7 +87,14 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
+
+        $productos = Producto::where('categoria_id', '=', $categoria->id)->get();
+        foreach($productos as $producto){
+            $producto->delete();
+        }
+
         $categoria->delete();
-        return back()->with('estado', 'Se ha eliminado correctamente');
+
+        return redirect('/categorias')->with('status', 'Se ha eliminado correctamente');
     }
 }

@@ -28,7 +28,7 @@
                 <td class="w-1/6">
                     <div class="flex flex-row">
                         <a href="{{ route('productos.edit', ['producto' => $producto->id ]) }}" class="p-2 w-full inline-flex border rounded-md bg-orange-500 text-white"><i class="fa-solid fa-pen"></i></a>
-                        <form id="eliminar" action=" {{ route('productos.destroy', ['producto' => $producto->id])}}" method="POST">
+                        <form  onsubmit="return confirmar(event, this);" action=" {{ route('productos.destroy', ['producto' => $producto->id])}}" method="POST">
                             @csrf
                             @method("DELETE")
                         <button onclick="confirmar()" type="button" class="p-2 w-full inline-flex border rounded-md bg-red-500 text-white"><i class="fa-solid fa-trash"></i></button></form>
@@ -46,12 +46,17 @@
 </div>
 
 <script>
-    function confirmar(){
-        result = confirm('Borrar?')
-        if(result){
-            document.getElementById("eliminar").submit()
+
+    const confirmar = (e, form) => {
+        e.preventDefault();
+
+        const validate = confirm('Desea Eliminar?')
+        if (validate) {
+            form.submit();
         }
+        return false;
     }
+
 </script>
 @endsection
 

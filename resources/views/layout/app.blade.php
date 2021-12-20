@@ -21,9 +21,14 @@
             @guest
                 <a href="{{ route('acceso') }}" class="text-white no-underline hover:opacity-80 ml-auto">Ingresar </a>
             @else
-            <form action="{{ route('logout') }}" method="POST" class="inline-block ml-auto">
+
+            <a href="{{ route('home') }}" class="text-white no-underline hover:opacity-80 ml-auto">Menú</a>
+            <a href="{{ route('categorias.index') }}" class="text-white no-underline hover:opacity-80 ml-5">Categorías</a>
+            <a href="{{ route('productos.index') }}" class="text-white no-underline hover:opacity-80 ml-5">Productos</a>
+
+            <form action="{{ route('logout') }}" method="POST" class="inline-block">
                 @csrf
-                <a href="#" onclick="this.closest('form').submit()" class="text-white no-underline hover:opacity-80 ml-auto">Logout</a>
+                <a href="#" onclick="this.closest('form').submit()" class="text-white no-underline hover:opacity-80 ml-5">Logout</a>
             </form>
             @endguest
         </nav>

@@ -19,7 +19,7 @@ class CreateProductosTable extends Migration
             $table->text('descripcion');
             $table->string('precio');
             $table->integer('stock');
-            $table->foreignId('categoria_id')->constrained();
+            $table->foreignId('categoria_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

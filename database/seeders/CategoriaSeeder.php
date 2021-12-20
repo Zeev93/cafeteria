@@ -16,7 +16,17 @@ class CategoriaSeeder extends Seeder
     public function run()
     {
         DB::table('categorias')->insert([
-            'descripcion' => Str::random(10),
+            'descripcion' => 'Desayunos',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('categorias')->insert([
+            'descripcion' => 'Comida',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('categorias')->insert([
+            'descripcion' => 'Cenas',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -26,17 +36,7 @@ class CategoriaSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('categorias')->insert([
-            'descripcion' => Str::random(10),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('categorias')->insert([
-            'descripcion' => Str::random(10),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('categorias')->insert([
-            'descripcion' => Str::random(10),
+            'descripcion' => 'Bebidas',
             'created_at' => now(),
             'updated_at' => now()
         ]);
