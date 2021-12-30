@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="container my-10 m-auto">
+    <div class="w-auto my-10 mx-10 m-auto">
         <form action="{{ route('categorias.update', ['categoria' => $categoria->id]) }}" method="POST" >
             @csrf
             @method('PUT')

@@ -23,8 +23,7 @@
             @else
 
             <a href="{{ route('home') }}" class="text-white no-underline hover:opacity-80 ml-auto">Menú</a>
-            <a href="{{ route('categorias.index') }}" class="text-white no-underline hover:opacity-80 ml-5">Categorías</a>
-            <a href="{{ route('productos.index') }}" class="text-white no-underline hover:opacity-80 ml-5">Productos</a>
+
 
             <form action="{{ route('logout') }}" method="POST" class="inline-block">
                 @csrf
@@ -32,8 +31,21 @@
             </form>
             @endguest
         </nav>
-        @yield('menu_categorias')
-        @yield('content')
+        <div class="flex flex-row flex-wrap">
+            <aside class="w-1/12 h-screen">
+                <ul class="shadow-md">
+                    <li class="my-5">
+                        <a href="{{ route('categorias.index') }}" class="text-gray-700 no-underline hover:opacity-80 ml-5">Categorías</a>
+                    </li>
+                    <li class="my-5">
+                        <a href="{{ route('productos.index') }}" class="text-gray-700 no-underline hover:opacity-80 ml-5">Productos</a>
+                    </li>
+                </ul>
+            </aside>
+            <div class="w-11/12">
+                @yield('content')
+            </div>
+        </div>
 
     <script>
         if(document.querySelector('.status')){

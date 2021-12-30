@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="container mx-auto my-10">
+<div class="w-auto my-10 mx-10 m-auto">
     <h1 class="text-center font-bold text-gray-700 text-3xl">Productos</h1>
     <a href="{{ route('productos.create') }}" class="rounded-md border bg-gray-700 text-white p-2 "> Agregar </a>
     <table class="table-auto  my-10">
